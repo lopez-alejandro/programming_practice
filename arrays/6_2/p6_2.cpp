@@ -5,14 +5,14 @@
  * represent the number D + 1
  */
 #include <iostream>
-#include <vector>
+#include <deque>
 
 using namespace std;
 
-void incrementInteger(vector<int> *A);
+void incrementInteger(deque<int> *A);
 
 int main(void){
-    vector<int> A;
+    deque<int> A;
     A.push_back(1);
     A.push_back(2);
     A.push_back(9);
@@ -24,9 +24,9 @@ int main(void){
 // for example if integer was (1,2,9) result is (1,3,0)
 // note this implementation does not account for when incrementing the
 // number results in a number with digits n+1 such as (9,9,9). result will be zero!
-void incrementInteger(vector<int> *A){
+void incrementInteger(deque<int> *A){
     // iterate through the entire array backwards and stop when rit is not 9  
-    vector<int>::reverse_iterator rit = A->rbegin();
+    deque<int>::reverse_iterator rit = A->rbegin();
 
     while(rit != A->rend()){
         int num = *rit;
@@ -40,8 +40,15 @@ void incrementInteger(vector<int> *A){
         }
     }
     
+    // increase size of deque by 
+    if(A->front() == 10){
+        A->front() = 0;
+        A->push_front(1);
+    }
+
+    
     // print out the results
-    for(vector<int>::iterator it = A->begin(); it !=  A->end(); ++it){
+    for(deque<int>::iterator it = A->begin(); it !=  A->end(); ++it){
         cout << *it << ",";
     }
     cout <<endl;
